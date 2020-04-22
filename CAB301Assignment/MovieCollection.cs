@@ -100,14 +100,14 @@ namespace CAB301Assignment
                 return null;
             }
             if (Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == -1)
-            { //If the new value is alphabetically lower than the current node.
+            { //If the new value is alphabetically lower than the current node go the the left branch
                 return (FindTitle(Root.Left, Title));
             }
             else if (Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == 1)
             {
                 return (FindTitle(Root.Right, Title));
             }
-            else if(Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == 0)
+            else if(Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == 0) // Name matches
             {
                 return Root;
             }

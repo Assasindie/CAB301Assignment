@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CAB301Assignment
 {
-    public enum Rating { 
+    public enum Classification { 
         Genral,
         Parental_Guidance,
         Mature,
@@ -16,10 +16,5 @@ namespace CAB301Assignment
         PG,
         M,
         MA
-    }
-
-
-    class Ratings
-    {
     }
 }

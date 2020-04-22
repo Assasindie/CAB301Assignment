@@ -14,5 +14,17 @@ namespace CAB301Assignment
             Array.Resize(ref Members, Members.Length + 1);
             Members[^1] = Member;
         }
+
+        public string SearchMemberNumber(string UserName)
+        {
+            for (int i = 0; i < Members.Length; i++)
+            {
+                if(Members[i].UserName == UserName)
+                {
+                    return Members[i].PhoneNumber;
+                }
+            }
+            return "User Not Found";
+        }
     }
 }

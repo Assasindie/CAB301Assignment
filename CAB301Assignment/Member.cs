@@ -4,14 +4,14 @@ using System.Text;
 
 namespace CAB301Assignment
 {
-    class Member
+    public class Member
     {
-        string Name;
-        string Address;
-        string PhoneNumber;
-        List<Movie> BorrowedMovies;
-        bool IsStaff = false; //default false
-        string UserName;
-        int Password;
+        public string FirstName;
+        public string LastName;
+        public string Address;
+        public string PhoneNumber;
+        public List<Movie> BorrowedMovies;
+        public string UserName;
+        public int Password;
     }
 }
