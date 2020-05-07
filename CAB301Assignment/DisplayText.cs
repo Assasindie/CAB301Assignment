@@ -69,7 +69,9 @@ namespace CAB301Assignment
                 StaffMenu();
             } else
             {
-                Console.WriteLine("Authentication Failed");
+                Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
+                Console.WriteLine("Authentication Failed.");
+                Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
                 StaffLogin();
             }
         }
@@ -120,11 +122,86 @@ namespace CAB301Assignment
 
         #endregion
 
+        #region Member Logic
 
         private static void MemberLogin()
         {
-            Console.WriteLine("Fuck off not implemented");
+            Console.WriteLine("============Member Login============");
+            Console.WriteLine("Enter 0 in any of the fields to return to main menu.");
+            Console.WriteLine("Please enter username");
+
+            string UserName = Console.ReadLine();
+            if (UserName == "0") { MainMenu(); }
+
+            Console.WriteLine("Please enter Password");
+            string Password = Console.ReadLine();
+
+            if (Password == "0") { MainMenu(); }
+
+            for (int i = 0; i < Program.Members.MembersArray.Length; i++)
+            {
+                if(Program.Members.MembersArray[i].UserName == UserName && Program.Members.MembersArray[i].Password.ToString() == Password)
+                {
+                    MemberMenu(Program.Members.MembersArray[i]);
+                    break;
+                }
+            }
+            Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
+            Console.WriteLine("Authentication Failed");
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
+            MemberLogin();
         }
+
+        public static void MemberMenu(Member Member)
+        {
+            MemberMenuText();
+            bool CorrectInput = false;
+            string Input = "";
+
+            //Validate input
+            while (!CorrectInput)
+            {
+                Input = Console.ReadLine();
+                CorrectInput = HandleIntInput(Input, MainMenuText, 5);
+            }
+            // Handle Where to go next based on the properly validated int
+            switch (int.Parse(Input))
+            {
+                case 0:
+                    MainMenu();
+                    break;
+                case 1:
+                    MemberMenuFunctions.DisplayAllMovies(Member);
+                    break;
+                case 2:
+                    MemberMenuFunctions.BorrowMovie(Member);
+                    break;
+                case 3:
+                    MemberMenuFunctions.ReturnMovie(Member);
+                    break;
+                case 4:
+                    MemberMenuFunctions.DisplayCurrentMovies(Member);
+                    break;
+                case 5:
+                    MemberMenuFunctions.DisplayTopMovies(Member);
+                    break;
+            }
+        }
+
+
+        private static void MemberMenuText()
+        {
+            Console.WriteLine("============Member Menu==========");
+            Console.WriteLine("1. Display all movies");
+            Console.WriteLine("2. Borrow a movie DVD");
+            Console.WriteLine("3. Return a movie DVD");
+            Console.WriteLine("4. List current borrowed movies");
+            Console.WriteLine("5. Display top 10 most popular movies");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("================================");
+            Console.WriteLine("Please make a selection (1-5, or 0 to return to main menu)");
+        }
+        #endregion
 
         //Handles integer input for navigating between menus
         public static bool HandleIntInput(string Input, Action TextMethod, int MaxInput, int MinInput = 0)

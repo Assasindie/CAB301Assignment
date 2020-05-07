@@ -10,7 +10,7 @@ namespace CAB301Assignment
         public string LastName;
         public string Address;
         public string PhoneNumber;
-        public List<Movie> BorrowedMovies;
+        public List<Movie> BorrowedMovies = new List<Movie>();
         public string UserName;
         public int Password;
     }

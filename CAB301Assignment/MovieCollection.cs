@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace CAB301Assignment
@@ -15,6 +18,8 @@ namespace CAB301Assignment
     class MovieCollection
     {
         public Node Root;
+
+        private List<Movie> TopBorrowedMovies = new List<Movie> { Capacity = 10 };
 
         public void Insert(Movie Movie)
         {
@@ -112,6 +117,75 @@ namespace CAB301Assignment
                 return Root;
             }
             return null;
+        }
+
+        public void TopMovies()
+        {
+            TraverseTopMovies(Root);
+            int i = 0;
+            Console.WriteLine("\nThe top borrowed movies in order are : \n");
+            foreach(Movie Movie in TopBorrowedMovies.OrderBy(Movie => Movie.TimesBorrowed).Reverse())
+            {
+                Console.WriteLine($"{i + 1}. Title: {Movie.Title}, Times Borrowed: {Movie.TimesBorrowed}, Director: {Movie.Director}, Genre: {Movie.Genre}, Classification: {Movie.Classification}");
+                   i++;
+            }
+            Console.WriteLine("\n");
+        }
+
+        public void TraverseTopMovies(Node Root)
+        {
+            //Using a private list called TopBorrowedMovies to store the information
+            if (Root != null) {
+                if (TopBorrowedMovies.Count != 10) //first 10 movies are added w/o having to check if they are bigger/smaller
+                {
+                    TopBorrowedMovies.Add(Root.Movie);
+                }
+                else if(Root.Movie.TimesBorrowed > TopBorrowedMovies.Min(Movie => Movie.TimesBorrowed)) //If the current has been borrowed more times than the min of the current top 10
+                {
+                    int x = TopBorrowedMovies.Min(Movie => Movie.TimesBorrowed);
+                    Movie SmallestMovie = TopBorrowedMovies[0];
+                    //loop to find min value in list and replace with Root.Movie
+                    for (int i = 0; i < TopBorrowedMovies.Count; i++)
+                    {
+                        if (TopBorrowedMovies[i].TimesBorrowed < SmallestMovie.TimesBorrowed)
+                        {
+                            SmallestMovie = TopBorrowedMovies[i]; 
+                        }
+                    }
+                    //get the index of the smallet movie and reassign it to Root.Movie
+                    int index = TopBorrowedMovies.FindIndex(m => m.Title.Equals(SmallestMovie.Title));
+                    TopBorrowedMovies[index] = Root.Movie;
+                }
+                TraverseTopMovies(Root.Left);
+                TraverseTopMovies(Root.Right);
+            }
+        }
+
+        public void AllMovies()
+        {
+            TraverseAllMovies(Root);
+        }
+
+        public void TraverseAllMovies(Node Root)
+        {
+            if(Root != null)
+            {
+                Console.Write($"Title: {Root.Movie.Title}, Copies : {Root.Movie.Copies}, Director : {Root.Movie.Director}, Starring : [");
+                for (int i = 0; i < Root.Movie.Starring.Length; i++)
+                {
+                    if(i == Root.Movie.Starring.Length - 1)
+                    {
+                        Console.Write($"{Root.Movie.Starring[i]}], ");
+                    }else
+                    {
+                        Console.Write($"{Root.Movie.Starring[i]}, ");
+                    }
+                }
+                  Console.Write($"Length : {Root.Movie.Length}, Genre : {Root.Movie.Genre}, Classification : {Root.Movie.Classification}," +
+                      $" Release Date : {Root.Movie.ReleaseDate}, Times Borrowed : {Root.Movie.TimesBorrowed} \n\n");
+                TraverseAllMovies(Root.Left);
+                TraverseAllMovies(Root.Right);
+            }
         }
 
     }
