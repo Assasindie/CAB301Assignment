@@ -9,7 +9,7 @@ namespace CAB301Assignment
 
         static void Main(string[] args)
         {
-            //initialise lists with some movies
+           //initialise lists with some movies
             Movie Movie1 = new Movie { Classification = Classification.Genral, Genre = Genre.Adventure, Copies = 0, Director = "Jeff", Starring = new string[] { "People", "Brad", "Someone" },
                 Length = 150, ReleaseDate = "11/11/11", TimesBorrowed = 0, Title = "Movie 1" };
             Movie Movie2 = new Movie { Classification = Classification.Mature, Genre = Genre.Action, Copies = 10, Director = "Brad", Starring = new string[] { "Famous Person", "Someone" },
@@ -46,7 +46,7 @@ namespace CAB301Assignment
             Movies.Insert(Movie10);
             Movies.Insert(Movie11);
             Movies.Insert(Movie12);
-
+            
             //initialise list with some people
             Member Alex = new Member { Address = "2 George St, Brisbane City QLD 4000", FirstName = "Alex", LastName = "Butler",
                 Password = 2121, PhoneNumber = "0487123456", UserName = "ButlerAlex" };

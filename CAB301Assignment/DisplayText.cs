@@ -162,7 +162,7 @@ namespace CAB301Assignment
             while (!CorrectInput)
             {
                 Input = Console.ReadLine();
-                CorrectInput = HandleIntInput(Input, MainMenuText, 5);
+                CorrectInput = HandleIntInput(Input, MemberMenuText, 5);
             }
             // Handle Where to go next based on the properly validated int
             switch (int.Parse(Input))
