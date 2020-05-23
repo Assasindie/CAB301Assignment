@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CAB301Assignment
 {
-    class StaffMenuFunctions
+    class StaffMenuFunctions //these functions are primarily focused on the text and input and call the appropriate function to add/remove/lookup information
     {
         public static void AddMovie()
         {
@@ -75,9 +75,11 @@ namespace CAB301Assignment
             NewMovie.Classification = (Classification)int.Parse(Input);
             CorrectInput = false;
 
+            //Date
             Console.WriteLine("Please enter the Release Date in dd/mm/yy format");
             NewMovie.ReleaseDate = Console.ReadLine();
 
+            //Copies
             static void MovieCopiesText() => Console.WriteLine("Please enter the amount of copies of the DVD");
             MovieCopiesText();
             while (!CorrectInput)
@@ -87,23 +89,25 @@ namespace CAB301Assignment
             }
             NewMovie.Copies = int.Parse(Input);
 
+            //inserts into array
             Program.Movies.Insert(NewMovie);
 
             Console.WriteLine("\n=============");
             Console.WriteLine("Movie Added.");
             Console.WriteLine("=============\n");
 
+            //returns to staff menu
             DisplayText.StaffMenu();
 
         }
 
-        public static void RemoveDVD()
+        public static void RemoveDVD() //removes dvd based on input
         {
             Console.WriteLine("Please enter movie title to be deleted");
-            Node MovieNode = Program.Movies.FindNodeWithTitle(Console.ReadLine());
+            Node MovieNode = Program.Movies.FindNodeWithTitle(Console.ReadLine()); //finds node associated with movie title
             if (MovieNode != null)
             {
-                Program.Movies.Remove(MovieNode.Movie);
+                Program.Movies.Remove(MovieNode.Movie); //deletes it
                 Console.WriteLine("\n=============");
                 Console.WriteLine("Movie Deleted.");
                 Console.WriteLine("=============\n");
@@ -124,19 +128,24 @@ namespace CAB301Assignment
         {
             Member NewMember = new Member();
 
+            //First name
             Console.WriteLine("Please enter members first name");
             NewMember.FirstName = Console.ReadLine();
 
+            //Last Name
             Console.WriteLine("Please enter members last name");
             NewMember.LastName = Console.ReadLine();
-            NewMember.UserName = NewMember.LastName + NewMember.FirstName;
+            NewMember.UserName = NewMember.LastName + NewMember.FirstName; //calculates username automatically
 
+            //Address
             Console.WriteLine("Please enter users residential address");
             NewMember.Address = Console.ReadLine();
 
+            //Phone Number
             Console.WriteLine("Please enter users phone number");
             NewMember.PhoneNumber = Console.ReadLine();
 
+            //Password
             bool CorrectInput = false;
             string Input = "";
             static void PasswordText() => Console.WriteLine("Please enter their desired password"); // function to repeat the text when handling bad input for password
@@ -149,6 +158,7 @@ namespace CAB301Assignment
             }
             NewMember.Password = int.Parse(Input);
 
+            //add to array
             Program.Members.InsertMember(NewMember);
 
             Console.WriteLine("\n=============");
@@ -158,7 +168,7 @@ namespace CAB301Assignment
             DisplayText.StaffMenu();
         }
 
-        public static void FindMember()
+        public static void FindMember() //calls function to find member based on input of phone number
         {
             Console.WriteLine("Please Enter Members First and Last Name seperated by a space");
             string[] Input = Console.ReadLine().Split(" ");

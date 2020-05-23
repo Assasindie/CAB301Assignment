@@ -15,8 +15,4 @@ namespace CAB301Assignment
         Thriller,
         Other
     }
-
-    class Genres
-    {
-    }
 }

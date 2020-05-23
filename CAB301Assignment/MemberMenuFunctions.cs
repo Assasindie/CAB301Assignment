@@ -4,9 +4,9 @@ using System.Text;
 
 namespace CAB301Assignment
 {
-    class MemberMenuFunctions
+    class MemberMenuFunctions // all the functions in this class display text and then call the appropriate function to perform the action
     {
-        public static void DisplayAllMovies(Member Member)
+        public static void DisplayAllMovies(Member Member) //displays all the movies
         {
             if(Program.Movies.Root == null)
             {
@@ -23,13 +23,13 @@ namespace CAB301Assignment
             DisplayText.MemberMenu(Member);            
         }
 
-        public static void DisplayTopMovies(Member Member)
+        public static void DisplayTopMovies(Member Member) //displays top 10 movies
         {
             Program.Movies.TopMovies();
             DisplayText.MemberMenu(Member);
         }
 
-        public static void BorrowMovie(Member Member)
+        public static void BorrowMovie(Member Member) //borrows a movie
         {
             Console.WriteLine("Please enter the title of the movie you wish to borrow");
             Movie SelectedMovie = Program.Movies.FindNodeWithTitle(Console.ReadLine()).Movie;
@@ -61,7 +61,7 @@ namespace CAB301Assignment
             DisplayText.MemberMenu(Member);
         }
 
-        public static void ReturnMovie(Member Member)
+        public static void ReturnMovie(Member Member) //return movie
         {
             Console.WriteLine("Please enter the title of the movie you wish to return");
             Movie SelectedMovie = Program.Movies.FindNodeWithTitle(Console.ReadLine()).Movie;
@@ -89,7 +89,7 @@ namespace CAB301Assignment
             DisplayText.MemberMenu(Member);
         }
 
-        public static void DisplayCurrentMovies(Member Member)
+        public static void DisplayCurrentMovies(Member Member) //display currently borrowed movies
         {
             if (Member.BorrowedMovies.Count == 0)
             {

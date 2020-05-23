@@ -5,16 +5,9 @@ using System.Text;
 namespace CAB301Assignment
 {
     public enum Classification { 
-        Genral,
+        General,
         Parental_Guidance,
         Mature,
         Mature_Accompanied
-    }
-
-    public enum ShortenedRating { 
-        G,
-        PG,
-        M,
-        MA
     }
 }

@@ -8,25 +8,26 @@ using System.Text;
 
 namespace CAB301Assignment
 {
-    class Node
+    class Node //BST
     {
         public Movie Movie;
         public Node Left;
         public Node Right;
     }
 
-    class MovieCollection
+    class MovieCollection //contains all the relevant functions for adding/removing/looking up information in the BST
     {
         public Node Root;
 
+        //List to store top 10 movies - max of 10 
         private List<Movie> TopBorrowedMovies = new List<Movie> { Capacity = 10 };
 
-        public void Insert(Movie Movie)
+        public void Insert(Movie Movie) //caller function to insert movie
         {
             Root = InsertNode(this.Root, Movie);
         }
 
-        private Node InsertNode(Node Root, Movie Movie)
+        private Node InsertNode(Node Root, Movie Movie) // Inserts a new movie
         {
             if(Root == null) //empty tree
             {
@@ -45,12 +46,12 @@ namespace CAB301Assignment
             return Root;
         }
 
-        public void Remove(Movie Movie)
+        public void Remove(Movie Movie) // caller function to remove movie
         {
             Root = RemoveNode(this.Root, Movie);
         }
 
-        private Node RemoveNode(Node Root, Movie Movie)
+        private Node RemoveNode(Node Root, Movie Movie) //removes movie
         {
             if(Root == null) //empty tre
             {
@@ -93,14 +94,14 @@ namespace CAB301Assignment
             return Movie;
         }
 
-        public Node FindNodeWithTitle(string Title)
+        public Node FindNodeWithTitle(string Title) //caller function to find movie based on title
         {
             return FindTitle(Root, Title);
         }
 
         private Node FindTitle(Node Root, string Title)
         {
-            if(Root == null)
+            if(Root == null) //empty node
             {
                 return null;
             }
@@ -108,7 +109,7 @@ namespace CAB301Assignment
             { //If the new value is alphabetically lower than the current node go the the left branch
                 return (FindTitle(Root.Left, Title));
             }
-            else if (Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == 1)
+            else if (Title.ToLower().CompareTo(Root.Movie.Title.ToLower()) == 1) // If the new value is alphabetically high than the current node go the the left branch
             {
                 return (FindTitle(Root.Right, Title));
             }
@@ -121,10 +122,12 @@ namespace CAB301Assignment
 
         public void TopMovies()
         {
+            //clear the list before creating - prevents removed moves from staying in the list
+            TopBorrowedMovies.Clear();
             TraverseTopMovies(Root);
             int i = 0;
             Console.WriteLine("\nThe top borrowed movies in order are : \n");
-            foreach(Movie Movie in TopBorrowedMovies.OrderBy(Movie => Movie.TimesBorrowed).Reverse())
+            foreach(Movie Movie in TopBorrowedMovies.OrderBy(Movie => Movie.TimesBorrowed).Reverse()) //sorts list by times borrowed before printing it
             {
                 Console.WriteLine($"{i + 1}. Title: {Movie.Title}, Times Borrowed: {Movie.TimesBorrowed}, Director: {Movie.Director}, Genre: {Movie.Genre}, Classification: {Movie.Classification}");
                    i++;
@@ -132,7 +135,7 @@ namespace CAB301Assignment
             Console.WriteLine("\n");
         }
 
-        public void TraverseTopMovies(Node Root)
+        public void TraverseTopMovies(Node Root) //stores the tp 10 movies by visiting each node and performing a check before adding to list
         {
             //Using a private list called TopBorrowedMovies to store the information
             if (Root != null) {
@@ -156,6 +159,7 @@ namespace CAB301Assignment
                     int index = TopBorrowedMovies.FindIndex(m => m.Title.Equals(SmallestMovie.Title));
                     TopBorrowedMovies[index] = Root.Movie;
                 }
+                //travese tree
                 TraverseTopMovies(Root.Left);
                 TraverseTopMovies(Root.Right);
             }
@@ -166,9 +170,9 @@ namespace CAB301Assignment
             TraverseAllMovies(Root);
         }
 
-        public void TraverseAllMovies(Node Root)
+        public void TraverseAllMovies(Node Root) // Traveses the whole tree and prints out all the movies.
         {
-            if(Root != null)
+            if(Root != null)//empty
             {
                 Console.Write($"Title: {Root.Movie.Title}, Copies : {Root.Movie.Copies}, Director : {Root.Movie.Director}, Starring : [");
                 for (int i = 0; i < Root.Movie.Starring.Length; i++)

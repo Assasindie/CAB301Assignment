@@ -9,6 +9,7 @@ namespace CAB301Assignment
 {
     class DisplayText
     {
+        //main menu input handler
         #region MainMenu Logic
         public static void MainMenu()
         {
@@ -50,6 +51,7 @@ namespace CAB301Assignment
         #endregion
 
         #region Staff Logic
+        //Staff login input handler
         private static void StaffLogin()
         {
             Console.WriteLine("============Staff Login============");
@@ -76,6 +78,7 @@ namespace CAB301Assignment
             }
         }
 
+        //staff menu input handler
         public static void StaffMenu()
         {
             StaffMenuText();
@@ -108,6 +111,7 @@ namespace CAB301Assignment
             }
         }
 
+        //text for staff menu
         private static void StaffMenuText()
         {
             Console.WriteLine("============Staff Menu==========");
@@ -124,6 +128,7 @@ namespace CAB301Assignment
 
         #region Member Logic
 
+        //member login input handler
         private static void MemberLogin()
         {
             Console.WriteLine("============Member Login============");
@@ -152,6 +157,7 @@ namespace CAB301Assignment
             MemberLogin();
         }
 
+        //handle input for member menu
         public static void MemberMenu(Member Member)
         {
             MemberMenuText();
@@ -188,7 +194,7 @@ namespace CAB301Assignment
             }
         }
 
-
+        //text for member menu
         private static void MemberMenuText()
         {
             Console.WriteLine("============Member Menu==========");
@@ -203,7 +209,7 @@ namespace CAB301Assignment
         }
         #endregion
 
-        //Handles integer input for navigating between menus
+        //Handles integer input for navigating between menus - returns true on valid input and recalls the text required on a invalid input.
         public static bool HandleIntInput(string Input, Action TextMethod, int MaxInput, int MinInput = 0)
         {
             if(!int.TryParse(Input, out int IntInput))
