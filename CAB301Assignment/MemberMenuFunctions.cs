@@ -31,32 +31,50 @@ namespace CAB301Assignment
 
         public static void BorrowMovie(Member Member) //borrows a movie
         {
-            Console.WriteLine("Please enter the title of the movie you wish to borrow");
-            Movie SelectedMovie = Program.Movies.FindNodeWithTitle(Console.ReadLine()).Movie;
-            if (SelectedMovie == null)
+            if (Member.BorrowedMovies.Count != 10)
             {
-                Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
-                Console.WriteLine("Error: Movie name not found.");
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
-            }
-            else
-            {
-                if (SelectedMovie.Copies == 0)
+                Console.WriteLine("Please enter the title of the movie you wish to borrow");
+                Node SelectedMovieNode = Program.Movies.FindNodeWithTitle(Console.ReadLine());
+                if (SelectedMovieNode == null)
                 {
                     Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
-                    Console.WriteLine("Error: No copies of the movie are left.");
+                    Console.WriteLine("Error: Movie name not found.");
                     Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
                 }
                 else
                 {
-                    Member.BorrowedMovies.Add(SelectedMovie);
-                    SelectedMovie.Copies--;
-                    SelectedMovie.TimesBorrowed++;
+                    Movie SelectedMovie = SelectedMovieNode.Movie;
+                    if (SelectedMovie.Copies == 0)
+                    {
+                        Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
+                        Console.WriteLine("Error: No copies of the movie are left.");
+                        Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
+                    }
+                    else
+                    {
+                        if (Member.BorrowedMovies.Contains(SelectedMovie))
+                        {
+                            Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
+                            Console.WriteLine("Error: You have already borrowed this movie.");
+                            Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
+                        }
+                        else
+                        {
+                            Member.BorrowedMovies.Add(SelectedMovie);
+                            SelectedMovie.Copies--;
+                            SelectedMovie.TimesBorrowed++;
 
-                    Console.WriteLine("\n=============");
-                    Console.WriteLine("Movie Borrowed.");
-                    Console.WriteLine("=============\n");
+                            Console.WriteLine("\n=============");
+                            Console.WriteLine("Movie Borrowed.");
+                            Console.WriteLine("=============\n");
+                        }
+                    }
                 }
+            } else
+            {
+                Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
+                Console.WriteLine("Error: You have already borrowed 10 movies");
+                Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
             }
             DisplayText.MemberMenu(Member);
         }
@@ -64,13 +82,13 @@ namespace CAB301Assignment
         public static void ReturnMovie(Member Member) //return movie
         {
             Console.WriteLine("Please enter the title of the movie you wish to return");
-            Movie SelectedMovie = Program.Movies.FindNodeWithTitle(Console.ReadLine()).Movie;
-            if (SelectedMovie == null)
+            Node SelectedMovieNode = Program.Movies.FindNodeWithTitle(Console.ReadLine());
+            if (SelectedMovieNode == null)
             {
                 Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
                 Console.WriteLine("Error: Movie name not found.");
                 Console.WriteLine("!!!!!!!!!!!!!!!!!!!\n");
-            }else if(!Member.BorrowedMovies.Contains(SelectedMovie)) 
+            }else if(!Member.BorrowedMovies.Contains(SelectedMovieNode.Movie)) 
             {
                 Console.WriteLine("\n!!!!!!!!!!!!!!!!!!!");
                 Console.WriteLine("Error: You have not borrowed this movie.");
@@ -78,8 +96,8 @@ namespace CAB301Assignment
             }
             else
             {
-                SelectedMovie.Copies++;
-                Member.BorrowedMovies.Remove(SelectedMovie);
+                SelectedMovieNode.Movie.Copies++;
+                Member.BorrowedMovies.Remove(SelectedMovieNode.Movie);
 
                 Console.WriteLine("\n=============");
                 Console.WriteLine("Movie Returned.");

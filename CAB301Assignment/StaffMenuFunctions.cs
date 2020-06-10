@@ -172,6 +172,10 @@ namespace CAB301Assignment
         {
             Console.WriteLine("Please Enter Members First and Last Name seperated by a space");
             string[] Input = Console.ReadLine().Split(" ");
+            if(Input.Length != 2)
+            {
+                FindMember();
+            }
             string UserName = Input[1] + Input[0];
 
             Console.WriteLine("\n=============");
